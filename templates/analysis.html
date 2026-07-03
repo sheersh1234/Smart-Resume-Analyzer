@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Analysis Details - Smart Resume Analyzer{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2 class="mb-3">
+            <i class="bi bi-graph-up"></i> Analysis Details
+        </h2>
+        <p class="text-muted">Detailed breakdown of your resume analysis</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-trophy"></i> ATS Score</h5>
+            </div>
+            <div class="card-body text-center">
+                <div class="display-1 mb-3 
+                    {% if analysis.ats_score >= 70 %}text-success
+                    {% elif analysis.ats_score >= 50 %}text-warning
+                    {% else %}text-danger{% endif %}">
+                    {{ analysis.ats_score }}/100
+                </div>
+                <div class="progress mb-3" style="height: 20px;">
+                    <div class="progress-bar 
+                        {% if analysis.ats_score >= 70 %}bg-success
+                        {% elif analysis.ats_score >= 50 %}bg-warning
+                        {% else %}bg-danger{% endif %}" 
+                        role="progressbar" 
+                        style="width: {{ analysis.ats_score }}%">
+                    </div>
+                </div>
+                <p class="text-muted">
+                    {% if analysis.ats_score >= 70 %}
+                        Excellent! Your resume is well-optimized for ATS systems.
+                    {% elif analysis.ats_score >= 50 %}
+                        Good. Some improvements can increase your ATS score.
+                    {% else %}
+                        Needs improvement. Focus on structure and keywords.
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-8 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-pie-chart"></i> Score Breakdown</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Structure</span>
+                        <span>{{ analysis.structure_score }}/30</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-primary" style="width: {{ (analysis.structure_score / 30 * 100) }}%"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Keywords</span>
+                        <span>{{ analysis.keyword_score }}/30</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-info" style="width: {{ (analysis.keyword_score / 30 * 100) }}%"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Format</span>
+                        <span>{{ analysis.format_score }}/20</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-warning" style="width: {{ (analysis.format_score / 20 * 100) }}%"></div>
+                    </div>
+                </div>
+                <div class="mb-0">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Content</span>
+                        <span>{{ analysis.content_score }}/20</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" style="width: {{ (analysis.content_score / 20 * 100) }}%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Skills Section -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-tools"></i> Skills Found ({{ analysis.total_skills }})</h5>
+            </div>
+            <div class="card-body">
+                {% for category, skills in analysis.skills_by_category.items() %}
+                <h6 class="mt-3">{{ category }}</h6>
+                <div>
+                    {% for skill in skills %}
+                    <span class="skill-badge">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Feedback Section -->
+<div class="row mb-4">
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="bi bi-check-circle"></i> Strengths</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    {% for strength in analysis.feedback.strengths %}
+                    <li class="mb-2">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                        {{ strength }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0"><i class="bi bi-exclamation-circle"></i> Areas for Improvement</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    {% for weakness in analysis.feedback.weaknesses %}
+                    <li class="mb-2">
+                        <i class="bi bi-exclamation-circle-fill text-danger me-2"></i>
+                        {{ weakness }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recommendations -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-lightbulb"></i> Recommendations</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    {% for recommendation in analysis.feedback.recommendations %}
+                    <li class="mb-2">
+                        <i class="bi bi-arrow-right-circle me-2"></i>
+                        {{ recommendation }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Actions -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-center">
+                <a href="{{ url_for('report', analysis_id=analysis_id) }}" class="btn btn-success btn-lg me-2">
+                    <i class="bi bi-file-earmark-pdf"></i> Download PDF Report
+                </a>
+                <a href="{{ url_for('upload') }}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-cloud-upload"></i> Upload Another Resume
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Resume - Smart Resume Analyzer{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2 class="mb-3">
+            <i class="bi bi-cloud-upload"></i> Upload Resume
+        </h2>
+        <p class="text-muted">Upload your PDF resume for ATS analysis and skill extraction</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-file-earmark-pdf"></i> Resume Upload</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <label for="resume" class="form-label">Select PDF Resume</label>
+                        <input type="file" class="form-control" id="resume" name="resume" 
+                               accept=".pdf" required>
+                        <small class="text-muted">Supported format: PDF only (max 12MB)</small>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="job_description" class="form-label">
+                            Job Description <span class="text-muted">(Optional)</span>
+                        </label>
+                        <textarea class="form-control" id="job_description" name="job_description" 
+                                  rows="6" placeholder="Paste the job description here to calculate match percentage..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-upload"></i> Upload & Analyze
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-info-circle"></i> Analysis Features</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                        ATS Score Calculation
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                        Skill Extraction
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                        Keyword Analysis
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                        Structure Evaluation
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                        Job Matching
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                        Improvement Tips
+                    </li>
+                    <li class="mb-0">
+                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                        PDF Report Generation
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-lightbulb"></i> Tips for Better Results</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0 small">
+                    <li class="mb-2">
+                        <i class="bi bi-arrow-right-circle me-2"></i>
+                        Use text-based PDFs (not scanned images)
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-arrow-right-circle me-2"></i>
+                        Include clear section headers
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-arrow-right-circle me-2"></i>
+                        Use action verbs in descriptions
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-arrow-right-circle me-2"></i>
+                        Quantify achievements with numbers
+                    </li>
+                    <li class="mb-0">
+                        <i class="bi bi-arrow-right-circle me-2"></i>
+                        List relevant technical skills
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

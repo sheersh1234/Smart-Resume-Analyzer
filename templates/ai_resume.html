@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}AI Resume Generator - Smart Resume Analyzer{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2 class="mb-3">
+            <i class="bi bi-robot"></i> AI Resume Generator
+        </h2>
+        <p class="text-muted">Generate a professional resume using AI with customizable templates</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-pencil-square"></i> Resume Details</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('ai_resume') }}" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="full_name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="full_name" name="full_name" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="photo" class="form-label">Profile Photo <span class="text-muted">(Optional - for Professional template)</span></label>
+                        <input type="file" class="form-control" id="photo" name="photo" accept="image/*">
+                        <small class="text-muted">Recommended: Square image, max 2MB</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="summary" class="form-label">Professional Summary</label>
+                        <textarea class="form-control" id="summary" name="summary" rows="3" 
+                                  placeholder="Brief overview of your professional background..."></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="experience" class="form-label">Work Experience</label>
+                        <textarea class="form-control" id="experience" name="experience" rows="5" 
+                                  placeholder="List your work experience (company, role, dates, responsibilities)..."></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="education" class="form-label">Education</label>
+                        <textarea class="form-control" id="education" name="education" rows="3" 
+                                  placeholder="Your educational background..."></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="skills" class="form-label">Skills</label>
+                        <textarea class="form-control" id="skills" name="skills" rows="3" 
+                                  placeholder="List your technical and soft skills..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-magic"></i> Generate Resume
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-palette"></i> Select Template</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Choose a template style:</label>
+                    <select class="form-select" id="template" name="template">
+                        <option value="modern">Modern</option>
+                        <option value="professional">Professional</option>
+                        <option value="creative">Creative</option>
+                        <option value="minimal">Minimal</option>
+                        <option value="executive">Executive</option>
+                    </select>
+                </div>
+                
+                <div class="template-preview mt-3">
+                    <div class="border rounded p-3 text-center">
+                        <i class="bi bi-file-earmark-text fs-1 text-muted mb-2"></i>
+                        <p class="text-muted mb-0">Template Preview</p>
+                        <small class="text-muted">Selected: <span id="selected-template">Modern</span></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-info-circle"></i> How It Works</h5>
+            </div>
+            <div class="card-body">
+                <ol class="mb-0">
+                    <li class="mb-2">Fill in your professional details</li>
+                    <li class="mb-2">Select a template style</li>
+                    <li class="mb-2">Click "Generate Resume"</li>
+                    <li class="mb-2">AI will optimize your content</li>
+                    <li class="mb-0">Download your professional resume</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('template').addEventListener('change', function(e) {
+        document.getElementById('selected-template').textContent = e.target.options[e.target.selectedIndex].text;
+    });
+</script>
+{% endblock %}
