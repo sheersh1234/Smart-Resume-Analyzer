@@ -20,7 +20,7 @@ import openai
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
 REPORTS_FOLDER = os.path.join(BASE_DIR, "reports")
-DATABASE_PATH = os.path.join(BASE_DIR, "database", "smart_resume_analyzer.db")
+DATABASE_PATH = "/tmp/smart_resume_analyzer.db"
 ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif"}
 
 app = Flask(__name__)
