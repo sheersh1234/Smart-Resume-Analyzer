@@ -79,7 +79,7 @@ def init_db(database_path: str) -> None:
     Initialize the SQLite database with required tables.
     Creates users, resumes, and analyses tables if they don't exist.
     """
-    os.makedirs(os.path.dirname(database_path), exist_ok=True)
+    # os.makedirs(os.path.dirname(database_path), exist_ok=True)
     
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
