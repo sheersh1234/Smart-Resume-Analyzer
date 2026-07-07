@@ -18,9 +18,13 @@ from resume_utils import (
 import openai
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
-REPORTS_FOLDER = os.path.join(BASE_DIR, "reports")
+UPLOAD_FOLDER = "/tmp/uploads"
+REPORTS_FOLDER = "/tmp/reports"
 DATABASE_PATH = "/tmp/smart_resume_analyzer.db"
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(REPORTS_FOLDER, exist_ok=True)
+
 ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif"}
 
 app = Flask(__name__)
